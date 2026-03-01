@@ -1,0 +1,247 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+/* ───────────────────────────────────────────────
+   CSS Custom Properties — Light (default)
+   ─────────────────────────────────────────────── */
+:root {
+  /* Brand palette */
+  --color-navy: #0D1B2A;
+  --color-navy-light: #1B2838;
+  --color-viola: #8E44AD;
+  --color-viola-light: #A569BD;
+  --color-viola-dark: #7D3C98;
+  --color-arancione: #E67E22;
+  --color-arancione-light: #F39C12;
+  --color-arancione-dark: #D35400;
+  --color-verde: #27AE60;
+  --color-verde-light: #2ECC71;
+  --color-verde-dark: #1E8449;
+
+  /* Semantic tokens */
+  --background: #F8F9FA;
+  --background-secondary: #FFFFFF;
+  --foreground: #0D1B2A;
+  --foreground-secondary: #6B7280;
+  --border-color: #E5E7EB;
+  --card-bg: #FFFFFF;
+
+  /* Glass effect */
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.3);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  --glass-blur: 16px;
+
+  /* Shadows */
+  --shadow-soft: 0 4px 6px rgba(0, 0, 0, 0.07), 0 10px 15px rgba(0, 0, 0, 0.05);
+  --shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.1), 0 4px 10px rgba(0, 0, 0, 0.06);
+  --shadow-elevated: 0 20px 60px rgba(0, 0, 0, 0.12), 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* ───────────────────────────────────────────────
+   Dark Mode Overrides
+   ─────────────────────────────────────────────── */
+.dark {
+  --background: #0D1B2A;
+  --background-secondary: #1B2838;
+  --foreground: #F8F9FA;
+  --foreground-secondary: #9CA3AF;
+  --border-color: #2D3A4A;
+  --card-bg: #1B2838;
+
+  --glass-bg: rgba(13, 27, 42, 0.75);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  --glass-blur: 20px;
+
+  --shadow-soft: 0 4px 6px rgba(0, 0, 0, 0.2), 0 10px 15px rgba(0, 0, 0, 0.15);
+  --shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.3), 0 4px 10px rgba(0, 0, 0, 0.2);
+  --shadow-elevated: 0 20px 60px rgba(0, 0, 0, 0.4), 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+/* ───────────────────────────────────────────────
+   Base Styles
+   ─────────────────────────────────────────────── */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+/* ───────────────────────────────────────────────
+   Custom Scrollbar
+   ─────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--foreground-secondary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-viola);
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--foreground-secondary) var(--background);
+}
+
+/* ───────────────────────────────────────────────
+   Component Classes
+   ─────────────────────────────────────────────── */
+@layer components {
+  /* Glassmorphism utility */
+  .glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+  }
+
+  /* Convenience glass card variant */
+  .glass-card {
+    @apply relative bg-white/70 backdrop-blur-md border border-white/30 rounded-card shadow-glass;
+  }
+
+  .dark .glass-card {
+    @apply bg-white/10 border-white/10;
+  }
+
+  /* Gradient text */
+  .gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-viola to-arancione;
+  }
+
+  /* Legacy button helpers (prefer Button component) */
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-8 py-4 bg-viola text-white font-heading font-bold rounded-button
+           hover:bg-viola-dark transition-all duration-300 hover:shadow-hover hover:scale-105;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center justify-center px-8 py-4 border-2 border-white text-white font-heading font-bold rounded-button
+           hover:bg-white/10 transition-all duration-300 hover:scale-105;
+  }
+
+  /* Section layout helpers */
+  .section-padding {
+    @apply py-20 md:py-28 px-4 sm:px-6 lg:px-8;
+  }
+
+  .section-title {
+    @apply font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-navy text-center mb-4;
+  }
+
+  .dark .section-title {
+    @apply text-white;
+  }
+
+  .section-subtitle {
+    @apply text-grigio-text text-lg md:text-xl text-center max-w-3xl mx-auto mb-12 md:mb-16;
+  }
+
+  /* Animated gradient background */
+  .gradient-bg {
+    background: linear-gradient(
+      -45deg,
+      #0D1B2A,
+      #8E44AD,
+      #E67E22,
+      #27AE60,
+      #8E44AD,
+      #0D1B2A
+    );
+    background-size: 400% 400%;
+    animation: gradient-shift 8s ease infinite;
+  }
+
+  /* Subtle animated gradient for section backgrounds */
+  .gradient-bg-subtle {
+    background: linear-gradient(
+      135deg,
+      var(--background) 0%,
+      rgba(142, 68, 173, 0.05) 25%,
+      var(--background) 50%,
+      rgba(230, 126, 34, 0.05) 75%,
+      var(--background) 100%
+    );
+    background-size: 400% 400%;
+    animation: gradient-shift 12s ease infinite;
+  }
+
+  /* Skeleton / shimmer loading placeholder */
+  .skeleton {
+    position: relative;
+    overflow: hidden;
+    background: var(--border-color);
+    border-radius: 8px;
+  }
+
+  .skeleton::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.4) 50%,
+      transparent 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2s linear infinite;
+  }
+
+  .dark .skeleton::after {
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.06) 50%,
+      transparent 100%
+    );
+    background-size: 200% 100%;
+  }
+}
+
+/* ───────────────────────────────────────────────
+   Utility Layer
+   ─────────────────────────────────────────────── */
+@layer utilities {
+  .animated-gradient-bg {
+    background: linear-gradient(-45deg, #0D1B2A, #1B2838, #8E44AD, #7D3C98, #0D1B2A);
+    background-size: 400% 400%;
+    animation: gradient-shift 8s ease infinite;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+}
